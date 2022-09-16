@@ -1,0 +1,6 @@
+https://cdn.intra.42.fr/pdf/pdf/52102/en.subject.pdf
+
+https://www.codequoi.com/en/42-get_next_line-project/
+https://github.com/mcombeau/get_next_line/blob/main/get_next_line.c
+
+https://stackoverflow.com/questions/58572353/how-to-write-a-function-that-reads-and-returns-a-line-from-a-file-descriptor-wit
