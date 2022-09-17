@@ -65,7 +65,7 @@ void	read_line(int fd, char **save, char **tmp)
 
     buf = malloc(sizeof * buf * (BUFFER_SIZE + 1));
     if (!buf)
-        return (0);
+        return ;
     r = 1;
     while (r > 0)
     {
@@ -75,10 +75,10 @@ void	read_line(int fd, char **save, char **tmp)
             free_str(&buf, save, tmp);
         }
         buf [r] = '\0';
-        *tmp = ft_strdup(save);
+        *tmp = ft_strdup(*save);
         free_str(save, 0, 0);
         *save = ft_strjoin(*tmp, buf);
-        free(tmp, 0, 0);
+        free_str(tmp, 0, 0);
         if (find_newline(*save))
             break ;
     }
@@ -88,10 +88,10 @@ char    *inspect_line(char **save, char **tmp)
 {
     char   *text;
 
-    *tmp = ft_strdup(save);
+    *tmp = ft_strdup(*save);
     free_str(save, 0, 0);
-    *save = after_newline(tmp);
-    text = before_newline(tmp);
+    *save = after_newline(*tmp);
+    text = before_newline(*tmp);
     free_str(tmp, 0, 0);
     return (text);
 }
@@ -108,14 +108,14 @@ char    *get_next_line(int fd)
     tmp = NULL;
     text = NULL;
     read_line(fd, &save, &tmp);
-    while (save != NULL && save != '\0')
+    if (save != NULL && *save != '\0')
     {
         text = inspect_line(&save, &tmp);
     }
     if (!text || *text == '\0')
     {
         free_str(&save, &tmp, &text);
-        return (NULL)
+        return (NULL);
     }
     return (text);
 }

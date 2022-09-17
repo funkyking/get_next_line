@@ -14,17 +14,17 @@ int	find_newline(const char *s)
 	return (0);
 }
 
-int	*ft_strlen(char const *string)
+char	ft_strlen(const char *string)
 {
-	int	len;
+	int	i;
 
-	len = 0;
-	while (string[len])
-		len++;
-	return (len);
+	i = 0;
+	while (string[i])
+		i++;
+	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char    *s;
 	int i;
@@ -73,19 +73,6 @@ char	*ft_strdup(const char *s1)
 	return (s2);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	if ((unsigned char)c == 0)
-		return ((char *)(s + ft_strlen(s)));
-	while (*s)
-	{
-		if (*s == (unsigned char)c)
-			return ((char *)s);
-		s++;
-	}
-	return (NULL);
-}
-
 void	*malloc_clean(unsigned int count, unsigned int size)
 {
 	void	*ret;
@@ -95,16 +82,16 @@ void	*malloc_clean(unsigned int count, unsigned int size)
 	int	j;
 
 	sum = count * size;
-	ret = malloc(sum)
+	ret = malloc(sum);
 	if (!ret)
 		return (NULL);
 	ptr = (unsigned char *)ret;
 	i = 0;
-	while (sum[j] != 0)
+	while (sum != 0)
 	{
 		ptr[i] = '\0';
 		i++;
-		j--;
+		sum--;
 	}
 	return (ret);
 }

@@ -28,9 +28,9 @@ char    *get_next_line(int fd);
 /*
     get_next_line_utils.c
 */
-int	find_newline(const char *s);
-int	*ft_strlen(char const *string);
-char	*ft_strjoin(char const *s1, char const *s2);
+int find_newline(const char *s);
+char    ft_strlen(const char *string);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(const char *s1);
 void	*malloc_clean(unsigned int count, unsigned int size);
 void    free_str(char **str, char **str2, char **str3);
@@ -38,3 +38,4 @@ void    free_str(char **str, char **str2, char **str3);
 /* did not end up using
                         char	*ft_strchr(const char *s, int c);
 */
+#endif
