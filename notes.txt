@@ -4,3 +4,9 @@ https://www.codequoi.com/en/42-get_next_line-project/
 https://github.com/mcombeau/get_next_line/blob/main/get_next_line.c
 
 https://stackoverflow.com/questions/58572353/how-to-write-a-function-that-reads-and-returns-a-line-from-a-file-descriptor-wit
+
+Structure
+
+- open or read the file
+- go through the file
+- save the contents before and after the \n
