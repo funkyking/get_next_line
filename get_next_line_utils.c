@@ -79,7 +79,6 @@ void	*malloc_clean(unsigned int count, unsigned int size)
 	unsigned char	*ptr;
 	unsigned int	sum;
 	int	i;
-	int	j;
 
 	sum = count * size;
 	ret = malloc(sum);
