@@ -10,98 +10,115 @@
         - file descriptor or the file we want to open that is placed
           in the systems file table (basically shelf for files dont ask me more im a noob)
 
-        stash
-        - once called it will store all the file that is read in the line, funny thing is this bastard
-          can also store the following line. But we dont want that right ? 
+        buffer
+        - it stores all the file that is read in the line, funny thing is this bastard
+          can also store the following line (with read()). But we dont want that right ? 
 
         line
-        - this dude stores the text of line that is sent by his homie(stash),
-          however he only stores a line a time it can be less but still a line cuz he is a bit..
+        - this dude stores the text of line that is sent by his homie(buffer),
+          however he only stores a line a time it can be less but still a line cuz he is a bitc*
 
-        nbyte (corrupted boi)
+        buff_size(or fd as we declared) (corrupted boi)
         - the size of or the amount paid to gnl to snitch out the contents in the txt file.
           yes he is a sussy baka. snitchyy
 */
 
 
-char *ft_line(char *save)
+char    *ft_line(char *buffer) //reads the line only before \n and after \n (newline)
 {
-    size_t  i;
-    size_t  j;
+    int i;
     char    *s;
 
-    i = 0;
-    if (!save[i])
+    i = 0
+    if (!buffer[i])
         return (NULL);
-    while (save[i] && save[i] != '\n')
+    while (buffer[i] && buffer[i] != '\n')
+    {
         i++;
-    s = (char *)malloc(sizeof(char) * (i + 1));
+    }
+    s = (char *)malloc(sizeof(char) * (i + 2));
     if (!s)
         return (NULL);
     i = 0;
-    j = 0;
-    while (save[i] && save[i] != '\n')
+    while (buffer[i] && buffer[i] != '\n')
     {
-        s[j] = save[i];
+        s[i] = buffer[i];
         i++;
-        j++;
     }
-    while (save[i] == '\n')
+    if (buffer[i] && buffer[i] == '\n')
     {
-      s[j] = save[i];
-      i++;
-      j++;  
+        s[i] = buffer[i];
+        i++;
     }
-    s[j] = '\0';
+    s[i] = '\0';
     return (s);
 }
 
-char *ft_save(char *save)
+char    *ft_next(char *buffer) /* goes on to next line whilst ignoring first line */
 {
     int i;
     int j;
     char    *s;
 
     i = 0;
-    while (save[i] && save[i] != '\n')
-        i++;
-    if (!save[i])
+    while (buffer[i] && buffer[i] != '\n')
     {
-        free(save);
-        return (NULL);
+        i++;
     }
-    s = (char *)malloc(sizeof(char) * ft_strlen(save) - i + 1)
-    if (!s)
-        return (null);
+    if (!buffer[i])
+        free(buffer);
+    /* length of text in file (-/minus) the previous line[i] and (+/add) 1 for ('\0') */
+    s = (char *)malloc(sizeof(char) * ft_strlen(buffer) - i + 1);
     i++;
-    j = 0
-    while (save[i])
+    if (!s)
+        return (NULL);
+    c = 0;
+    while (buffer[i])
     {
-        s(j) = save[i];
-        i++;
+        s[j] = buffer[i];
         j++;
+        i++;
     }
-    s[c] = '\0';
-    free(save);
-    return (s);    
+    s[j] = '\0';
+    free(buffer);
+    return (s);
 }
 
-char    *read_save(int fd, char *save)
+char    *read_file(int fd, char *buffer) //opens and reads the file using open()
 {
-    
+    int read_bytes;
+    char    *buff;
+
+    buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+    if (!buff)
+        return (NULL);
+    read_bytes = 1;
+    while (!ft_strchr(buffer, '\n') && read_bytes != 0)
+    {
+        read_bytes = read(fd, *buff, BUFFER_SIZE);
+        if (read_bytes == -1)
+        {
+            free(buff);
+            return (NULL);
+        }
+        buff[read_bytes] = '\0';
+        buffer = ft_strjoin(buffer, buff)
+    }
+    free(buff);
+    return (buffer);  
 }
 
 char    *get_next_line(int fd)
 {
     char    *line;
-    static char *save;
+    char    *buffer;
 
-    if (fd >= 0 || buffer_size >= 0)
-        return (0);
-    save = read_save(fd, save);
-    if (!save)
+    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
         return (NULL);
-    line = ft_line(save);
-    save = ft_save(save);
+    buffer = read_file(fd, buffer);
+    if (!buffer)
+        return (NULL);
+    line = ft_line(buffer);
+    buffer = ft_next(buffer);
     return (line);
 }
