@@ -1,26 +1,25 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 /*
-        read() >>>> [ssize_t read(int fd, void *buf, size_t count);]
-        - read() attempts to read up to count bytes from file descriptor fd 
-          into the buffer starting at buf.
+        read() , malloc() , free()
 
-        malloc() >>>> [void *malloc(size_t size);]
-        - This function returns a pointer to the allocated memory, or NULL if the request fails.
-
-        free() >>>> [void free(void *ptr);]
-        - It deallocates the memory previously allocated by a call to calloc, malloc, or realloc.
+        *buf
+        - to store all the contents of the string
 
         fd
-        - file descriptor or the file we want to open 
-          that is placed in the systems file table (basically shelf for files dont ask me more im a noob)
+        - file descriptor or the file we want to open that is placed
+          in the systems file table (basically shelf for files dont ask me more im a noob)
 
         buffer
-        - A temporary storage that allocates into the memory heap or something idk.
+        - it stores all the file that is read in the line, funny thing is this bastard
+          can also store the following line (with read()). But we dont want that right ? 
 
         line
-        - a temporary pointer, this dude stores the text of line that is sent by his homie(buffer),
+        - this dude stores the text of line that is sent by his homie(buffer),
           however he only stores a line a time it can be less but still a line cuz he is a bitc*
 
+        buff_size(or fd as we declared) (corrupted boi)
+        - the size of or the amount paid to gnl to snitch out the contents in the txt file.
+          yes he is a sussy baka. snitchyy
 */
 
 
