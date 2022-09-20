@@ -1,121 +1,107 @@
 #include "get_next_line.h"
 
 /*
-    -Reads the words or elements in a file
-    -But it reads only the line before in enters \n (next line)
-    -it reads and stops at the end of the line
-    -it starts again after discovering a newline
-*/
-char    *before_newline(const char *s)
-{
-    int i;
-    char    *ret;
-    
+        read() , malloc() , free()
 
-    while (s[i] != '\0' && s[i] != '\n')
+        *buf
+        - to store all the contents of the string
+
+        fd
+        - file descriptor or the file we want to open that is placed
+          in the systems file table (basically shelf for files dont ask me more im a noob)
+
+        stash
+        - once called it will store all the file that is read in the line, funny thing is this bastard
+          can also store the following line. But we dont want that right ? 
+
+        line
+        - this dude stores the text of line that is sent by his homie(stash),
+          however he only stores a line a time it can be less but still a line cuz he is a bit..
+
+        nbyte (corrupted boi)
+        - the size of or the amount paid to gnl to snitch out the contents in the txt file.
+          yes he is a sussy baka. snitchyy
+*/
+
+
+char *ft_line(char *save)
+{
+    size_t  i;
+    size_t  j;
+    char    *s;
+
+    i = 0;
+    if (!save[i])
+        return (NULL);
+    while (save[i] && save[i] != '\n')
         i++;
-    if (s[i] != '\0' && s[i] == '\n')
-        i++;
-    ret = malloc_clean(i + 1, sizeof * ret);
-    if (!ret)
+    s = (char *)malloc(sizeof(char) * (i + 1));
+    if (!s)
         return (NULL);
     i = 0;
-    while (s[i] != '\0' && s[i] != '\n')
+    j = 0;
+    while (save[i] && save[i] != '\n')
     {
-        ret[i] = s[i];
+        s[j] = save[i];
         i++;
+        j++;
     }
-    if (s[i] == '\n')
+    while (save[i] == '\n')
     {
-        ret[i] = s[i];
-        i++;
+      s[j] = save[i];
+      i++;
+      j++;  
     }
-    return (ret);
+    s[j] = '\0';
+    return (s);
 }
 
-char    *after_newline(const char *s)
+char *ft_save(char *save)
 {
-    char    *ret;
     int i;
     int j;
+    char    *s;
 
-    j = 0;
-    while(s && s[j])
-        j++;
     i = 0;
-    while (s[i] != '\0' && s[i] != '\n')
+    while (save[i] && save[i] != '\n')
         i++;
-    if (s[i] != '\0' && s[i] == '\n')
-        i++;
-    ret = malloc_clean((j - i) + 1, sizeof * ret);
-    if (!ret)
-        return (NULL);
-    while (s[i + j])
+    if (!save[i])
     {
-        ret[j] = s[i+j];
+        free(save);
+        return (NULL);
+    }
+    s = (char *)malloc(sizeof(char) * ft_strlen(save) - i + 1)
+    if (!s)
+        return (null);
+    i++;
+    j = 0
+    while (save[i])
+    {
+        s(j) = save[i];
+        i++;
         j++;
     }
-    return (ret);
+    s[c] = '\0';
+    free(save);
+    return (s);    
 }
 
-void	read_line(int fd, char **save, char **tmp)
+char    *read_save(int fd, char *save)
 {
-    char    *buf;
-    int r;
-
-    buf = malloc(sizeof * buf * (BUFFER_SIZE + 1));
-    if (!buf)
-        return ;
-    r = 1;
-    while (r > 0)
-    {
-        r = read(fd, buf, BUFFER_SIZE);
-        if (r == -1)
-        {
-            free_str(&buf, save, tmp);
-        }
-        buf [r] = '\0';
-        *tmp = ft_strdup(*save);
-        free_str(save, 0, 0);
-        *save = ft_strjoin(*tmp, buf);
-        free_str(tmp, 0, 0);
-        if (find_newline(*save))
-            break ;
-    }
-}
-
-char    *inspect_line(char **save, char **tmp)
-{
-    char   *text;
-
-    *tmp = ft_strdup(*save);
-    free_str(save, 0, 0);
-    *save = after_newline(*tmp);
-    text = before_newline(*tmp);
-    free_str(tmp, 0, 0);
-    return (text);
+    
 }
 
 char    *get_next_line(int fd)
 {
+    char    *line;
     static char *save;
-    char    *tmp;
-    char    *text;
 
-    if (0 > fd || 0 >= BUFFER_SIZE)
+    if (fd >= 0 || buffer_size >= 0)
+        return (0);
+    save = read_save(fd, save);
+    if (!save)
         return (NULL);
-    save = NULL;
-    tmp = NULL;
-    text = NULL;
-    read_line(fd, &save, &tmp);
-    if (save != NULL && *save != '\0')
-    {
-        text = inspect_line(&save, &tmp);
-    }
-    if (!text || *text == '\0')
-    {
-        free_str(&save, &tmp, &text);
-        return (NULL);
-    }
-    return (text);
+    line = ft_line(save);
+    save = ft_save(save);
+    return (line);
 }

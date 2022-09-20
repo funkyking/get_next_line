@@ -1,116 +1,60 @@
 #include "get_next_line.h"
 
-int	find_newline(const char *s)
+size_t  ft_strlen(char *str)
 {
-	int	i;
+    size_t  i;
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	ft_strlen(const char *string)
-{
-	int	i;
-
-	i = 0;
-	while (string[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char    *s;
-	int i;
-	int j;
-
-	if (!s1 && !s2)
-		return (NULL);
-	s = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		s[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		s[i] = s2[j];
-		i++;
-		j++;
-	}
-	s[i] = 0;
-	return (s);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	int	i;
-	char    *s2;
-
-	i = ft_strlen(s1);
-	if (!s1)
-		return (NULL);
-	s2 = (char *)malloc(sizeof(char) * (i + 1));
-	if (!s2)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
-void	*malloc_clean(unsigned int count, unsigned int size)
-{
-	void	*ret;
-	unsigned char	*ptr;
-	unsigned int	sum;
-	int	i;
-
-	sum = count * size;
-	ret = malloc(sum);
-	if (!ret)
-		return (NULL);
-	ptr = (unsigned char *)ret;
-	i = 0;
-	while (sum != 0)
-	{
-		ptr[i] = '\0';
-		i++;
-		sum--;
-	}
-	return (ret);
-}
-
-
-void    free_str(char **str, char **str2, char **str3)
-{
-    if (str && *str)
+    i = 0;
+    while (str[i] != '\0')
     {
-        free(*str);
-        *str = NULL;
+        i++;
     }
-    if (str2 && *str2)
+    return (i);
+}
+
+char    *ft_strjoin(char *s1, char *s2)
+{
+    char    *str;
+    size_t  i;
+    size_t  j;
+
+    if (!s1 && !s2)
+        return (NULL);
+    str = (char *)malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+    if (!str)
+        return (NULL);
+    i = 0;
+    while (s1[i])
     {
-        free(*str2);
-        *str2 = NULL;
+        str[i] = s1[i];
+        i++;
     }
-    if (str3 && *str3)
+    j = 0;
+    while (s2[j])
     {
-        free(*str3);
-        *str3 = NULL;
+        str[i] = s2[j];
+        i++;
+        j++;
     }
+    str [i] = '\0';
+    return (str);
+}
+
+char    ft_strchr(char *str, int c)
+{
+    size_t  i;
+
+    i = 0;
+    if (!str)
+        return (0);
+    while (str[i] != '\0' && *str != c)
+    {
+        i++;
+    }
+    if (str[i] == (char) c)
+    {
+        return (str[i]);
+        i++;
+    }
+    return 0;
 }
