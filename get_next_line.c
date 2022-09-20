@@ -29,7 +29,7 @@ char    *ft_line(char *buffer) //reads the line only before \n and after \n (new
     int i;
     char    *s;
 
-    i = 0
+    i = 0;
     if (!buffer[i])
         return (NULL);
     while (buffer[i] && buffer[i] != '\n')
@@ -72,7 +72,7 @@ char    *ft_next(char *buffer) /* goes on to next line whilst ignoring first lin
     i++;
     if (!s)
         return (NULL);
-    c = 0;
+    j = 0;
     while (buffer[i])
     {
         s[j] = buffer[i];
@@ -95,14 +95,14 @@ char    *read_file(int fd, char *buffer) //opens and reads the file using open()
     read_bytes = 1;
     while (!ft_strchr(buffer, '\n') && read_bytes != 0)
     {
-        read_bytes = read(fd, *buff, BUFFER_SIZE);
+        read_bytes = read(fd, buff, BUFFER_SIZE);
         if (read_bytes == -1)
         {
             free(buff);
             return (NULL);
         }
         buff[read_bytes] = '\0';
-        buffer = ft_strjoin(buffer, buff)
+        buffer = ft_strjoin(buffer, buff);
     }
     free(buff);
     return (buffer);  
@@ -111,7 +111,7 @@ char    *read_file(int fd, char *buffer) //opens and reads the file using open()
 char    *get_next_line(int fd)
 {
     char    *line;
-    char    *buffer;
+    static char *buffer;
 
     if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
         return (NULL);
